@@ -9,20 +9,20 @@ jobs:
   productionDeployment:
     name: Production-deployment
     runs-on: ubuntu-latest
+    environment: 
+      name: Production
+      url: http://test.com 
     strategy:
       matrix:
         node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
       - run: npm ci
-
       - name: Install Plugin and Deploy
         uses: serverless/github-action@v2
         with:
